@@ -6,6 +6,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
+// Obtenemos el ConStr para usarlo en el contexto
+var ConStr = builder.Configuration.GetConnectionString("Postgres");
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
