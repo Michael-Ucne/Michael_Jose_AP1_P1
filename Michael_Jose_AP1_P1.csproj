@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Components\Pages\RegistroPages\" />
     <Folder Include="DAL\" />
     <Folder Include="Models\" />
     <Folder Include="Services\" />
