@@ -2,13 +2,13 @@
 @inject NavigationManager navigationManager
 @rendermode InteractiveServer
 
-<PageTitle>Lista de Registro</PageTitle>
+<PageTitle>Lista de Aportes</PageTitle>
 <div class="container">
     <div class="card shadow-lg">
         <div class="card-header text-center bg-primary text-white">
             <h5 class="card-title text-center">
                 <strong>
-                    Consulta de Registro
+                    Consulta de Aportes
                 </strong>
             </h5>
         </div>
@@ -27,8 +27,8 @@
                     <label class="col-form-label"><strong>Filtrar por</strong></label>
                     <InputSelect class="form-select" @bind-Value="Filtro">
                         <option value="" selected disabled>Elija una opci&oacute;n</option>
-                        <option value="Id" >ID</option>
-
+                        <option value="aporteId" >Aporte ID</option>
+                        <option value="Name">Nombre</option>
                     </InputSelect>
                 </div>
 
@@ -45,13 +45,13 @@
             <div class="row mt-2">
                 <div class="col-md-4 d-flex align-items-center">
                     <label class="me-2 mb-0">
-                        <strong>Fecha Desde</strong>
+                        <strong>Desde</strong>
                     </label>
                     <InputDate @bind-Value="FechaDesde" class="form-control input-date-match" />
                 </div>
                 <div class="col-md-4 d-flex align-items-center">
                     <label class="me-2 mb-0"
-                        <strong>Fecha Hasta</strong>
+                        <strong>Hasta</strong>
                     </label>
                     <InputDate @bind-Value="FechaHasta" class="form-control input-date-match" />
                 </div>
