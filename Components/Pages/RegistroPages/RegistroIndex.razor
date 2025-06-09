@@ -68,7 +68,18 @@
                     </tr>
                 </thead>
                 <tbody>
-                   
+                    @foreach (var aporte in Aporte)
+                    {
+                        <tr>
+                            <td>@aporte.AporteId</td>
+                            <td>@aporte.Fecha.ToString("dd/MM/yyyy")</td>
+                            <td>@aporte.Name</td>
+                            <td>@aporte.Mount</td>
+                            <td class="text-center">
+                                <a href="/Registro/Edit/@aporte.AporteId" class="btn btn-outline-primary bi bi-pencil-square"></a>
+                            </td>
+                        </tr>
+                    }
                 </tbody>
             </table>
         </div>
