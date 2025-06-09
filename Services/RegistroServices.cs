@@ -20,6 +20,14 @@ namespace Michael_Jose_AP1_P1.Services
             return await contexto.SaveChangesAsync() > 0;
         }
 
+        private async Task<bool> Existe(int aporteId)
+        {
+            await using var contexto = await DbFactory.CreateDbContextAsync();
+            return await contexto.Registros
+                .AnyAsync(t => t.AporteId == aporteId);
+        }
+
+
 
     }
 }
