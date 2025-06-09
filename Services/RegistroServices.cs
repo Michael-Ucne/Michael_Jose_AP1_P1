@@ -27,6 +27,18 @@ namespace Michael_Jose_AP1_P1.Services
                 .AnyAsync(t => t.AporteId == aporteId);
         }
 
+        public async Task<bool> Guardar(Registro aporte)
+        {
+            aporte.AporteId = aporte.AporteId;
+            if (!await Existe(aporte.AporteId))
+            {
+                return await Insertar(aporte);
+            }
+            else
+            {
+                return await Modificar(aporte);
+            }
+        }
 
 
     }
