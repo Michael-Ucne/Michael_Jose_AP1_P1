@@ -47,5 +47,14 @@ namespace Michael_Jose_AP1_P1.Services
                 .FirstOrDefaultAsync(t => t.AporteId == aporteId);
         }
 
+        public async Task<bool> Eliminar(int aporteId)
+        {
+            await using var contexto = await DbFactory.CreateDbContextAsync();
+            return await contexto.Registros
+                .AsNoTracking()
+                .Where(t => t.AporteId == aporteId)
+                .ExecuteDeleteAsync() > 0;
+        }
+
     }
 }
