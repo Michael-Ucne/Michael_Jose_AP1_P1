@@ -1,6 +1,7 @@
 ﻿using Michael_Jose_AP1_P1.DAL;
 using Michael_Jose_AP1_P1.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace Michael_Jose_AP1_P1.Services
 {
@@ -56,5 +57,13 @@ namespace Michael_Jose_AP1_P1.Services
                 .ExecuteDeleteAsync() > 0;
         }
 
+        public async Task<List<Registro>> Listar(Expression<Func<Registro, bool>> criterio)
+        {
+            await using var contexto = await DbFactory.CreateDbContextAsync();
+            return await contexto.Registros
+                .AsNoTracking()
+                .Where(criterio)
+                .ToListAsync();
+        }
     }
 }
