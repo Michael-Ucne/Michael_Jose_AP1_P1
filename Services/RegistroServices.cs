@@ -40,6 +40,12 @@ namespace Michael_Jose_AP1_P1.Services
             }
         }
 
+        public async Task<Registro?> Buscar(int aporteId)
+        {
+            await using var contexto = await DbFactory.CreateDbContextAsync();
+            return await contexto.Registros
+                .FirstOrDefaultAsync(t => t.AporteId == aporteId);
+        }
 
     }
 }
