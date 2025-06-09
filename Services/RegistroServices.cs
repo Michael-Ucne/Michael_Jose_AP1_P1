@@ -13,5 +13,13 @@ namespace Michael_Jose_AP1_P1.Services
             return await contexto.SaveChangesAsync() > 0;
         }
 
+        private async Task<bool> Modificar(Registro aporte)
+        {
+            await using var contexto = await DbFactory.CreateDbContextAsync();
+            contexto.Update(aporte);
+            return await contexto.SaveChangesAsync() > 0;
+        }
+
+
     }
 }
