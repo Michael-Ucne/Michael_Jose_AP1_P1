@@ -86,6 +86,7 @@
 
     protected override async Task OnInitializedAsync()
     {
+       Aporte = await registroServices.Listar(r => r.AporteId > 0);    
     }
 
     private async Task Buscar()
