@@ -63,7 +63,15 @@
 
     protected override async Task OnInitializedAsync()
     {
-
+        var aporteBuscado = await registroServices.Buscar(AporteId);
+        if (aporteBuscado != null)
+        {
+            Aporte = aporteBuscado;
+        }
+        else
+        {
+            Aporte = new Registro { Fecha = DateTime.Now };
+        }
     }
 
     private async Task Guardar()
