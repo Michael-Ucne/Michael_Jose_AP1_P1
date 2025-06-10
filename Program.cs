@@ -1,5 +1,6 @@
 using Michael_Jose_AP1_P1.Components;
 using Michael_Jose_AP1_P1.DAL;
+using Michael_Jose_AP1_P1.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +14,9 @@ var ConStr = builder.Configuration.GetConnectionString("Postgres");
 
 // Agremos el contexto al builder con el ConStr
 builder.Services.AddDbContextFactory<Contexto>(o => o.UseNpgsql(ConStr));
+
+// Inyeccion del service
+builder.Services.AddScoped<RegistroServices>();
 
 
 var app = builder.Build();
