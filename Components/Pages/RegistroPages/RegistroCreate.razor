@@ -74,7 +74,14 @@
 
     private async Task Guardar()
     {
-      
+        Aporte.Fecha = DateTime.SpecifyKind(Aporte.Fecha, DateTimeKind.Utc);
+        List<Registro> aporte = await registroServices .Listar(a => a.Name == Aporte.Name);
+        if (aporte.Count == 1 && (aporte[0].AporteId != Aporte.AporteId))
+        {
+            return;
+        }
+        await registroServices.Guardar(Aporte);
+        navigationManager.NavigateTo("/Registro");
     }
 
     private void Nuevo()
