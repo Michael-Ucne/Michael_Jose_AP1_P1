@@ -66,6 +66,7 @@
                         <th>Fecha</th>
                         <th>Nombres</th>
                         <th>Montos</th>
+                        <th>Editar</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -83,6 +84,16 @@
                     }
                 </tbody>
             </table>
+
+            <div class="d-flex justify-content-between">
+                <div>
+                    <strong>Total Usuarios: </strong> @TotalUsuarios
+                </div>
+                <div>
+                    <strong>Total Monto: </strong> @TotalMonto.ToString("C")
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
@@ -95,10 +106,13 @@
     public string ValorFiltro { get; set; } = string.Empty;
 
     public List<Registro> Aporte { get; set; } = new List<Registro>();
+    public double TotalMonto { get; set; }
+    public int TotalUsuarios { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-       Aporte = await registroServices.Listar(r => r.AporteId > 0);    
+       Aporte = await registroServices.Listar(r => r.AporteId > 0);   
+       CalcularTotales();
     }
 
     public async Task Buscar()
@@ -125,4 +139,11 @@
 
         Aporte = lista;
     }
+
+    private void CalcularTotales()
+    {
+        TotalMonto = Aporte.Sum(a => a.Mount);
+        TotalUsuarios = Aporte.Select(a => a.Name).Distinct().Count();
+    }
+
 }
