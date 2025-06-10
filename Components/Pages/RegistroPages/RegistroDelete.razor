@@ -1,0 +1,68 @@
+﻿@page "/Registro/Delete/{AporteId:int}"
+@inject RegistroServices registroServices
+@inject NavigationManager navigationManager
+@rendermode InteractiveServer
+
+<PageTitle>Eliminar Aporte</PageTitle>
+
+<EditForm Model="Aporte" OnValidSubmit="Eliminar">
+    <div class="card shadow-lg">
+        <div class="card-header text-center bg-primary text-white">
+            <h5 class="card-title"><strong>Eliminar Aporte</strong></h5>
+        </div>
+        <div class="card-subtitle text-center bg-danger text-white py-2">
+            <h5>¿Estás seguro de querer eliminar este aporte?</h5>
+        </div>
+
+        <div class="card-body">
+            @if (Aporte == null)
+            {
+                <div class="alert alert-warning">Aporte no encontrado.</div>
+            }
+            else
+            {
+                <div class="mb-3">
+                    <label class="form-label"><strong>Aporte ID: </strong>@AporteId</label>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label"><strong>Nombre: </strong>@Aporte.Name</label>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label"><strong>Monto: </strong>@Aporte.Mount.ToString("N2")</label>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label"><strong>Fecha: </strong>@Aporte.Fecha.ToShortDateString()</label>
+                </div>
+            }
+        </div>
+
+        <div class="card-footer text-center mt-2">
+            <div class="btn-group" role="group" aria-label="Acciones unidas">
+                @if (Aporte != null)
+                {
+                    <button type="submit" class="btn btn-outline-danger bi bi-trash">Eliminar</button>
+                }
+                <a href="/Registro" class="btn btn-outline-secondary">
+                    <span class="bi bi-arrow-left"></span> Volver
+                </a>
+            </div>
+        </div>
+    </div>
+</EditForm>
+
+@code {
+
+    [Parameter] 
+    public int AporteId { get; set; }
+    private Registro? Aporte { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        
+    }  
+
+    private async Task Eliminar()
+    {
+       
+    }
+}
