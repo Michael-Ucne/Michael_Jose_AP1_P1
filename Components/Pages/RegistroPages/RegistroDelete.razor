@@ -58,7 +58,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        
+        Aporte = await registroServices.Buscar(AporteId);
     }  
 
     private async Task Eliminar()
