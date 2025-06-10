@@ -1,4 +1,5 @@
 ﻿@page "/Registro"
+@using System.Linq.Expressions
 @inject RegistroServices registroServices
 @inject NavigationManager navigationManager
 @rendermode InteractiveServer
@@ -100,8 +101,28 @@
        Aporte = await registroServices.Listar(r => r.AporteId > 0);    
     }
 
-    private async Task Buscar()
+    public async Task Buscar()
     {
-        
+        Expression<Func<Registro, bool>> filtroExp = r => r.AporteId > 0;
+
+        if (Filtro == "aporteId")
+        {
+            int id = int.Parse(ValorFiltro);
+            filtroExp = r => r.AporteId == id;
+        }
+        else if (Filtro == "Name")
+        {
+            filtroExp = r => r.Name != null && r.Name.Contains(ValorFiltro);
+        }
+
+        var lista = await registroServices.Listar(filtroExp);
+
+        if (FechaDesde.HasValue)
+            lista = lista.Where(r => r.Fecha >= FechaDesde.Value).ToList();
+
+        if (FechaHasta.HasValue)
+            lista = lista.Where(r => r.Fecha <= FechaHasta.Value).ToList();
+
+        Aporte = lista;
     }
 }
