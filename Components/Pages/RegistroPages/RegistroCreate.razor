@@ -1,5 +1,76 @@
-﻿<h3>RegistroCreate</h3>
+﻿@page "/Registro/Create"
+@inject RegistroServices registroServices
+@inject NavigationManager navigationManager
+@rendermode InteractiveServer
 
-@code {
+<PageTitle>Crear Aporte</PageTitle>
+<EditForm Model="Aporte" OnValidSubmit="Guardar">
+    <DataAnnotationsValidator />
 
+    <div class="container">
+        <div class="card shadow-lg">
+            <div class="card-header text-center bg-primary text-white">
+                <h5 class="card-title">
+                    <strong>
+                        Registrar Aporte
+                    </strong>
+                </h5>
+            </div>
+
+            <div class="card-body">
+
+                @*AporteId*@
+                <div class="mb-3">
+                    <label class="form-label">
+                        <strong>Aporte ID</strong>
+                        <input class="form-control" @bind="Aporte.AporteId" readonly />
+                    </label>
+                </div>
+
+                @*Nombres*@
+                <div class="mb-3">
+                    <label class="form-label">
+                        <strong>Nombres</strong>
+                        <InputText class="form-control" @bind-Value="Aporte.Name" />
+                        <ValidationMessage For="(() => Aporte.AporteId)" />
+                    </label>
+                </div>
+
+                @*Monto*@
+                <div class="mb-3">
+                    <label class="form-label">
+                        <strong>Monto</strong>
+                        <InputNumber class="form-control" @bind-Value="Aporte.Mount" />
+                        <ValidationMessage For="(() => Aporte.Mount)" />
+                    </label>
+                </div>
+
+                @*footer*@
+                <div class="card-footer text-center mt-2">
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-outline-primary bi bi-file-earmark-plus" @onclick="Nuevo"> Limpiar</button>
+                        <button type="submit" class="btn btn-outline-success bi bi-floppy"> Guardar</button>
+                        <a href="/Registro" class="btn btn-outline-secondary">
+                            <span class="bi bi-arrow-left"></span> Volver
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</EditForm>
+
+@code
+{
+    private Registro Aporte { get; set; } = new Registro();
+
+    private async Task Guardar()
+    {
+      
+    }
+
+    private void Nuevo()
+    {
+
+    }
 }
