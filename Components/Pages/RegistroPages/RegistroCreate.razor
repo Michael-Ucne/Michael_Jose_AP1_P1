@@ -45,6 +45,13 @@
                     </label>
                 </div>
 
+                @*Fecha Actual*@
+                <div class="col-md-3 mb-3">
+                    <label class="form-label"><strong>Fecha Actual</strong></label>
+                    <InputDate class="form-control" @bind-Value="Aporte.Fecha" readonly />
+                    <ValidationMessage For="(() => Aporte.Fecha)" />
+                </div>
+
                 @*footer*@
                 <div class="card-footer text-center mt-2">
                     <div class="btn-group" role="group">
@@ -62,7 +69,8 @@
 
 @code
 {
-    private Registro Aporte { get; set; } = new Registro();
+    public DateTime Fecha { get; set; } = DateTime.Now;
+    private Registro Aporte { get; set; } = new Registro { Fecha = DateTime.Now };
 
     private async Task Guardar()
     {
@@ -71,7 +79,7 @@
 
     private void Nuevo()
     {
-        Aporte = new Registro();
+        Aporte = new Registro { Fecha = DateTime.Now };
         StateHasChanged();
     }
 }
