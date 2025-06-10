@@ -76,6 +76,14 @@
 
     private async Task Guardar()
     {
+        if (string.IsNullOrWhiteSpace(Aporte.Name))
+        {
+            return;
+        }
 
+        Aporte.Fecha = DateTime.SpecifyKind(Aporte.Fecha, DateTimeKind.Utc);
+
+        await registroServices.Guardar(Aporte);
+        navigationManager.NavigateTo("/Registro");
     }
 }
