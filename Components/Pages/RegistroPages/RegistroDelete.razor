@@ -54,7 +54,7 @@
 
     [Parameter] 
     public int AporteId { get; set; }
-    private Registro? Aporte { get; set; }
+    private Registro Aporte { get; set; } = new Registro();
 
     protected override async Task OnInitializedAsync()
     {
