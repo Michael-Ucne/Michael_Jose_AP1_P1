@@ -105,7 +105,7 @@
     public string Filtro { get; set; } = string.Empty;
     public string ValorFiltro { get; set; } = string.Empty;
 
-    public List<Aporte> Aporte { get; set; } = new List<Aporte>();
+    public List<Registro> Aporte { get; set; } = new List<Registro>();
     public double TotalMonto { get; set; }
     public int TotalUsuarios { get; set; }
 
@@ -117,7 +117,7 @@
 
     public async Task Buscar()
     {
-        Expression<Func<Aporte, bool>> filtroExp = r => r.AporteId > 0;
+        Expression<Func<Registro, bool>> filtroExp = r => r.AporteId > 0;
 
         if (Filtro == "aporteId")
         {
