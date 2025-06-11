@@ -1,5 +1,5 @@
-﻿@page "/Registro/Create"
-@inject RegistroServices registroServices
+﻿@page "/Aporte/Create"
+@inject AportesServices aportesServices
 @inject NavigationManager navigationManager
 @rendermode InteractiveServer
 
@@ -70,23 +70,23 @@
 @code
 {
     public DateTime Fecha { get; set; } = DateTime.Now;
-    private Registro Aporte { get; set; } = new Registro { Fecha = DateTime.Now };
+    private Aportes Aporte { get; set; } = new Aportes { Fecha = DateTime.Now };
 
     private async Task Guardar()
     {
         Aporte.Fecha = DateTime.SpecifyKind(Aporte.Fecha, DateTimeKind.Utc);
-        List<Registro> aporte = await registroServices .Listar(a => a.Name == Aporte.Name);
+        List<Aportes> aporte = await aportesServices.Listar(a => a.Name == Aporte.Name);
         if (aporte.Count == 1 && (aporte[0].AporteId != Aporte.AporteId))
         {
             return;
         }
-        await registroServices.Guardar(Aporte);
-        navigationManager.NavigateTo("/Registro");
+        await aportesServices.Guardar(Aporte);
+        navigationManager.NavigateTo("/Aporte");
     }
 
     private void Nuevo()
     {
-        Aporte = new Registro { Fecha = DateTime.Now };
+        Aporte = new Aportes { Fecha = DateTime.Now };
         StateHasChanged();
     }
 }
