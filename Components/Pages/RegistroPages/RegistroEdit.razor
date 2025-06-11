@@ -150,4 +150,12 @@ else
        
     }
 
+    private async Task Eliminar()
+    {
+        if (Aporte != null)
+        {
+            await registroServices.Eliminar(Aporte.AporteId);
+        }
+        navigationManager.NavigateTo("/Registro");
+    }
 }
