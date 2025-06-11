@@ -1,6 +1,6 @@
-﻿@page "/Registro"
+﻿@page "/Aporte"
 @using System.Linq.Expressions
-@inject AportesServices registroServices
+@inject AportesServices aportesServices
 @inject NavigationManager navigationManager
 @rendermode InteractiveServer
 
@@ -17,7 +17,7 @@
 
         <div class="card-body">
             <div class="d-flex justify-content-end mb-2">
-                <a href="/Registro/Create" class="btn btn-success">
+                <a href="/Aporte/Create" class="btn btn-success">
                     <span class="bi bi-plus-square"></span> Crear
                 </a>
             </div>
@@ -78,7 +78,7 @@
                             <td>@aporte.Name</td>
                             <td>@aporte.Mount</td>
                             <td class="text-center">
-                                <a href="/Registro/Edit/@aporte.AporteId" class="btn btn-outline-primary bi bi-pencil-square"></a>
+                                <a href="/Aporte/Edit/@aporte.AporteId" class="btn btn-outline-primary bi bi-pencil-square"></a>
                             </td>
                         </tr>
                     }
@@ -111,7 +111,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-       Aporte = await registroServices.Listar(r => r.AporteId > 0);   
+       Aporte = await aportesServices.Listar(r => r.AporteId > 0);   
        CalcularTotales();
     }
 
@@ -129,7 +129,7 @@
             filtroExp = r => r.Name != null && r.Name.Contains(ValorFiltro);
         }
 
-        var lista = await registroServices.Listar(filtroExp);
+        var lista = await aportesServices.Listar(filtroExp);
 
         if (FechaDesde.HasValue)
             lista = lista.Where(r => r.Fecha >= FechaDesde.Value).ToList();
