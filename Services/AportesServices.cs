@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 
 namespace Michael_Jose_AP1_P1.Services
 {
-    public class RegistroServices(IDbContextFactory<Contexto> DbFactory)
+    public class AportesServices(IDbContextFactory<Contexto> DbFactory)
     {
         private async Task<bool> Insertar(Aportes aporte)
         {
