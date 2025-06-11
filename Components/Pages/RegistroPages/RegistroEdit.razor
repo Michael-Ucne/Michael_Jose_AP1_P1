@@ -5,61 +5,114 @@
 
 <PageTitle>Editar Aporte</PageTitle>
 
-<EditForm Model="Aporte" OnValidSubmit="Guardar">
-    <DataAnnotationsValidator />
-    <ValidationSummary />
+@if (!mostrandoEliminar)
+{
+    <EditForm Model="Aporte" OnValidSubmit="Guardar">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
 
-    <div class="container">
+        <div class="container">
+            <div class="card shadow-lg">
+                <div class="card-header text-center bg-primary text-white">
+                    <h5 class="card-title"><strong>Editar Aporte</strong></h5>
+                </div>
+
+                <div class="card-body">
+
+                    <div class="mb-3">
+                        <label class="form-label"><strong>Aporte ID</strong></label>
+                        <InputNumber class="form-control" @bind-Value="Aporte.AporteId" readonly />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label"><strong>Nombres</strong></label>
+                        <InputText class="form-control" @bind-Value="Aporte.Name" />
+                        <ValidationMessage For="(() => Aporte.Name)" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label"><strong>Monto</strong></label>
+                        <InputNumber class="form-control" @bind-Value="Aporte.Mount" />
+                        <ValidationMessage For="(() => Aporte.Mount)" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label"><strong>Fecha</strong></label>
+                        <InputDate class="form-control" @bind-Value="Aporte.Fecha" />
+                        <ValidationMessage For="(() => Aporte.Fecha)" />
+                    </div>
+
+                    <div class="card-footer text-center mt-2">
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-outline-danger bi bi-trash" @onclick="MostrarEliminar">
+                                Eliminar
+                            </button>
+                            <button type="submit" class="btn btn-outline-success bi bi-floppy"> Guardar</button>
+                            <a href="/Registro" class="btn btn-outline-secondary">
+                                <span class="bi bi-arrow-left"></span> Volver
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </EditForm>
+}
+else
+{
+    <EditForm Model="Aporte" OnValidSubmit="Eliminar">
         <div class="card shadow-lg">
             <div class="card-header text-center bg-primary text-white">
-                <h5 class="card-title"><strong>Editar Aporte</strong></h5>
+                <h5 class="card-title"><strong>Eliminar Aporte</strong></h5>
+            </div>
+            <div class="card-subtitle text-center bg-danger text-white py-2">
+                <h5>¿Estás seguro de querer eliminar este aporte?</h5>
             </div>
 
             <div class="card-body">
-
-                <div class="mb-3">
-                    <label class="form-label"><strong>Aporte ID</strong></label>
-                    <InputNumber class="form-control" @bind-Value="Aporte.AporteId" readonly />
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label"><strong>Nombres</strong></label>
-                    <InputText class="form-control" @bind-Value="Aporte.Name" />
-                    <ValidationMessage For="(() => Aporte.Name)" />
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label"><strong>Monto</strong></label>
-                    <InputNumber class="form-control" @bind-Value="Aporte.Mount" />
-                    <ValidationMessage For="(() => Aporte.Mount)" />
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label"><strong>Fecha</strong></label>
-                    <InputDate class="form-control" @bind-Value="Aporte.Fecha" />
-                    <ValidationMessage For="(() => Aporte.Fecha)" />
-                </div>
-
-                <div class="card-footer text-center mt-2">
-                    <div class="btn-group" role="group">
-                        <a href="/Registro/Delete/@AporteId" class="btn btn-outline-primary bi bi-trash"> Eliminar</a>
-                        <button type="submit" class="btn btn-outline-success bi bi-floppy"> Guardar</button>
-                        <a href="/Registro" class="btn btn-outline-secondary">
-                            <span class="bi bi-arrow-left"></span> Volver
-                        </a>
+                @if (Aporte == null)
+                {
+                    <div class="alert alert-warning">Aporte no encontrado.</div>
+                }
+                else
+                {
+                    <div class="mb-3">
+                        <label class="form-label"><strong>Aporte ID: </strong>@Aporte.AporteId</label>
                     </div>
-                </div>
+                    <div class="mb-3">
+                        <label class="form-label"><strong>Nombre: </strong>@Aporte.Name</label>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label"><strong>Monto: </strong>@Aporte.Mount.ToString("N2")</label>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label"><strong>Fecha: </strong>@Aporte.Fecha.ToShortDateString()</label>
+                    </div>
+                }
+            </div>
 
+            <div class="card-footer text-center mt-2">
+                <div class="btn-group" role="group" aria-label="Acciones unidas">
+                    @if (Aporte != null)
+                    {
+                        <button type="submit" class="btn btn-outline-danger bi bi-trash">Eliminar</button>
+                    }
+                    <button type="button" class="btn btn-outline-secondary" @onclick="Volver">
+                        <span class="bi bi-arrow-left"></span> Volver
+                    </button>
+                </div>
             </div>
         </div>
-    </div>
-</EditForm>
+    </EditForm>
+}
 
 @code {
+
     [Parameter]
     public int AporteId { get; set; }
-
     private Registro Aporte { get; set; } = new Registro();
+    private bool mostrandoEliminar = false;
 
     protected override async Task OnInitializedAsync()
     {
@@ -86,4 +139,15 @@
         await registroServices.Guardar(Aporte);
         navigationManager.NavigateTo("/Registro");
     }
+
+    private void MostrarEliminar()
+    {
+        
+    }
+
+    private void Volver()
+    {
+       
+    }
+
 }
