@@ -2,7 +2,7 @@
 
 namespace Michael_Jose_AP1_P1.Models
 {
-    public class Registro
+    public class Aportes
     {
         [Key]
         public int AporteId { get; set; }

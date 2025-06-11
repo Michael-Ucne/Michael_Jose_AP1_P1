@@ -16,7 +16,7 @@ var ConStr = builder.Configuration.GetConnectionString("Postgres");
 builder.Services.AddDbContextFactory<Contexto>(o => o.UseNpgsql(ConStr));
 
 // Inyeccion del service
-builder.Services.AddScoped<RegistroServices>();
+builder.Services.AddScoped<AportesServices>();
 
 
 var app = builder.Build();

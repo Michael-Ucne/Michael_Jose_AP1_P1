@@ -1,5 +1,5 @@
-﻿@page "/Registro/Edit/{AporteId:int}"
-@inject RegistroServices registroServices
+﻿@page "/Aporte/Edit/{AporteId:int}"
+@inject AportesServices aportesServices
 @inject NavigationManager navigationManager
 @rendermode InteractiveServer
 
@@ -48,7 +48,7 @@
                                 Eliminar
                             </button>
                             <button type="submit" class="btn btn-outline-success bi bi-floppy"> Guardar</button>
-                            <a href="/Registro" class="btn btn-outline-secondary">
+                            <a href="/Aporte" class="btn btn-outline-secondary">
                                 <span class="bi bi-arrow-left"></span> Volver
                             </a>
                         </div>
@@ -111,19 +111,19 @@ else
 
     [Parameter]
     public int AporteId { get; set; }
-    private Registro Aporte { get; set; } = new Registro();
+    private Aportes Aporte { get; set; } = new Aportes();
     private bool mostrandoEliminar = false;
 
     protected override async Task OnInitializedAsync()
     {
-        var aporteBuscado = await registroServices.Buscar(AporteId);
+        var aporteBuscado = await aportesServices.Buscar(AporteId);
         if (aporteBuscado != null)
         {
             Aporte = aporteBuscado;
         }
         else
         {
-            Aporte = new Registro { Fecha = DateTime.Now };
+            Aporte = new Aportes { Fecha = DateTime.Now };
         }
     }
 
@@ -136,8 +136,8 @@ else
 
         Aporte.Fecha = DateTime.SpecifyKind(Aporte.Fecha, DateTimeKind.Utc);
 
-        await registroServices.Guardar(Aporte);
-        navigationManager.NavigateTo("/Registro");
+        await aportesServices.Guardar(Aporte);
+        navigationManager.NavigateTo("/Aporte");
     }
 
     private void MostrarEliminar()
@@ -154,8 +154,8 @@ else
     {
         if (Aporte != null)
         {
-            await registroServices.Eliminar(Aporte.AporteId);
+            await aportesServices.Eliminar(Aporte.AporteId);
         }
-        navigationManager.NavigateTo("/Registro");
+        navigationManager.NavigateTo("/Aporte");
     }
 }

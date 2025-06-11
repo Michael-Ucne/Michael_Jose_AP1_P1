@@ -5,16 +5,16 @@ using System.Linq.Expressions;
 
 namespace Michael_Jose_AP1_P1.Services
 {
-    public class RegistroServices(IDbContextFactory<Contexto> DbFactory)
+    public class AportesServices(IDbContextFactory<Contexto> DbFactory)
     {
-        private async Task<bool> Insertar(Registro aporte)
+        private async Task<bool> Insertar(Aportes aporte)
         {
             await using var contexto = await DbFactory.CreateDbContextAsync();
-            contexto.Registros.Add(aporte);
+            contexto.Aportes.Add(aporte);
             return await contexto.SaveChangesAsync() > 0;
         }
 
-        private async Task<bool> Modificar(Registro aporte)
+        private async Task<bool> Modificar(Aportes aporte)
         {
             await using var contexto = await DbFactory.CreateDbContextAsync();
             contexto.Update(aporte);
@@ -24,11 +24,11 @@ namespace Michael_Jose_AP1_P1.Services
         private async Task<bool> Existe(int aporteId)
         {
             await using var contexto = await DbFactory.CreateDbContextAsync();
-            return await contexto.Registros
+            return await contexto.Aportes
                 .AnyAsync(t => t.AporteId == aporteId);
         }
 
-        public async Task<bool> Guardar(Registro aporte)
+        public async Task<bool> Guardar(Aportes aporte)
         {
             aporte.AporteId = aporte.AporteId;
             if (!await Existe(aporte.AporteId))
@@ -41,26 +41,26 @@ namespace Michael_Jose_AP1_P1.Services
             }
         }
 
-        public async Task<Registro?> Buscar(int aporteId)
+        public async Task<Aportes?> Buscar(int aporteId)
         {
             await using var contexto = await DbFactory.CreateDbContextAsync();
-            return await contexto.Registros
+            return await contexto.Aportes
                 .FirstOrDefaultAsync(t => t.AporteId == aporteId);
         }
 
         public async Task<bool> Eliminar(int aporteId)
         {
             await using var contexto = await DbFactory.CreateDbContextAsync();
-            return await contexto.Registros
+            return await contexto.Aportes
                 .AsNoTracking()
                 .Where(t => t.AporteId == aporteId)
                 .ExecuteDeleteAsync() > 0;
         }
 
-        public async Task<List<Registro>> Listar(Expression<Func<Registro, bool>> criterio)
+        public async Task<List<Aportes>> Listar(Expression<Func<Aportes, bool>> criterio)
         {
             await using var contexto = await DbFactory.CreateDbContextAsync();
-            return await contexto.Registros
+            return await contexto.Aportes
                 .AsNoTracking()
                 .Where(criterio)
                 .ToListAsync();

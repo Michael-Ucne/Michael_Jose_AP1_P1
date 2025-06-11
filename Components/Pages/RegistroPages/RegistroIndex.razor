@@ -1,6 +1,6 @@
-﻿@page "/Registro"
+﻿@page "/Aporte"
 @using System.Linq.Expressions
-@inject RegistroServices registroServices
+@inject AportesServices aportesServices
 @inject NavigationManager navigationManager
 @rendermode InteractiveServer
 
@@ -17,7 +17,7 @@
 
         <div class="card-body">
             <div class="d-flex justify-content-end mb-2">
-                <a href="/Registro/Create" class="btn btn-success">
+                <a href="/Aporte/Create" class="btn btn-success">
                     <span class="bi bi-plus-square"></span> Crear
                 </a>
             </div>
@@ -78,7 +78,7 @@
                             <td>@aporte.Name</td>
                             <td>@aporte.Mount</td>
                             <td class="text-center">
-                                <a href="/Registro/Edit/@aporte.AporteId" class="btn btn-outline-primary bi bi-pencil-square"></a>
+                                <a href="/Aporte/Edit/@aporte.AporteId" class="btn btn-outline-primary bi bi-pencil-square"></a>
                             </td>
                         </tr>
                     }
@@ -105,19 +105,19 @@
     public string Filtro { get; set; } = string.Empty;
     public string ValorFiltro { get; set; } = string.Empty;
 
-    public List<Registro> Aporte { get; set; } = new List<Registro>();
+    public List<Aportes> Aporte { get; set; } = new List<Aportes>();
     public double TotalMonto { get; set; }
     public int TotalUsuarios { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-       Aporte = await registroServices.Listar(r => r.AporteId > 0);   
+       Aporte = await aportesServices.Listar(r => r.AporteId > 0);   
        CalcularTotales();
     }
 
     public async Task Buscar()
     {
-        Expression<Func<Registro, bool>> filtroExp = r => r.AporteId > 0;
+        Expression<Func<Aportes, bool>> filtroExp = r => r.AporteId > 0;
 
         if (Filtro == "aporteId")
         {
@@ -129,7 +129,7 @@
             filtroExp = r => r.Name != null && r.Name.Contains(ValorFiltro);
         }
 
-        var lista = await registroServices.Listar(filtroExp);
+        var lista = await aportesServices.Listar(filtroExp);
 
         if (FechaDesde.HasValue)
             lista = lista.Where(r => r.Fecha >= FechaDesde.Value).ToList();
